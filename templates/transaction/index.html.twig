@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listado de Transacciones{% endblock %}
+
+{% block body %}
+    <h1>Listado de Transacciones</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Producto</th>
+                <th>Tipo</th>
+                <th>Cantidad</th>
+                <th>Última Actualización</th>
+                <th>Fecha de Regristro</th>
+                <th>Empleado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.id }}</td>
+                <td>{{ transaction.product }}</td>
+                <td>{{ transaction.type }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.updatedAt ? transaction.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ transaction.creationDate ? transaction.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ transaction.employee }}</td>
+                <td>
+                    <a href="{{ path('transaction_show', {'id': transaction.id}) }}">Ver</a>
+                    <a href="{{ path('transaction_edit', {'id': transaction.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('transaction_new') }}">Nueva Transacción</a>
+{% endblock %}

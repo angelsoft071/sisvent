@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Producto{% endblock %}
+
+{% block body %}
+    <h1>Producto</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ product.name }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ product.description }}</td>
+            </tr>
+            <tr>
+                <th>Saldo</th>
+                <td><strong>{{ product.balance }}</strong></td>
+            </tr>
+            <tr>
+                <th>Fecha de Regristro</th>
+                <td>{{ product.creationDate ? product.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Stock Mínimo</th>
+                <td>{{ product.minStock }}</td>
+            </tr>
+            <tr>
+                <th>Stock Máximo</th>
+                <td>{{ product.maxStock }}</td>
+            </tr>
+            <tr>
+                <th>Precio</th>
+                <td>{{ product.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_index') }}">Regresar a la lista</a>
+
+    <a href="{{ path('product_edit', {'id': product.id}) }}">Editar</a>
+
+    {{ include('product/_delete_form.html.twig') }}
+
+    <h1>Transacciones para el Producto: {{ product }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Producto</th>
+                <th>Tipo</th>
+                <th>Cantidad</th>
+                <th>Última Actualización</th>
+                <th>Fecha de Registro</th>
+                <th>Empleado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transaction in product.transactions %}
+            <tr>
+                <td>{{ transaction.id }}</td>
+                <td>{{ transaction.product }}</td>
+                <td>{{ transaction.type }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.updatedAt ? transaction.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ transaction.creationDate ? transaction.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ transaction.employee }}</td>
+                <td>
+                    <a href="{{ path('transaction_show', {'id': transaction.id}) }}">Ver</a>
+                    <a href="{{ path('transaction_edit', {'id': transaction.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('transaction_new') }}">Registrar Nueva Transacción</a>
+{% endblock %}
