@@ -14,20 +14,28 @@ class TransactionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('product')
+            ->add('product',null,[
+                'label' => 'Producto'
+            ])
             ->add('type', ChoiceType::class, [
                 'choices'  => [
-                    'in' => "in",
-                    'out' => "out",
-                    ]
+                    'Entrada' => "in",
+                    'Salida' => "out",
+                ],
+                'label' => 'Tipo'
                 ]
             )
-            ->add('amount')
+            ->add('amount',null,[
+                'label' => 'Cantidad'
+            ])
             // ->add('updatedAt')
             ->add('creationDate', DateTimeType::class,[
-                "widget" => "single_text"
+                "widget" => "single_text",
+                "label" => "Fecha de Registro"
             ])
-            ->add('employee')
+            ->add('employee',null,[
+                'label' => 'Empleado'
+            ])
         ;
     }
 
