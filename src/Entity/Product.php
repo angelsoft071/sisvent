@@ -54,6 +54,11 @@ class Product
      */
     private $transactions;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="products")
+     */
+    private $user;
+
     public function __toString() {
         return $this->name;
     }
@@ -178,6 +183,18 @@ class Product
         }
 
         return $balance;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
 }

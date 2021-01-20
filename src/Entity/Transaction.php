@@ -48,6 +48,11 @@ class Transaction
      */
     private $employee;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="transactions")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +126,18 @@ class Transaction
     public function setEmployee(?Employee $employee): self
     {
         $this->employee = $employee;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
